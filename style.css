@@ -1,0 +1,270 @@
+:root {
+  --rosa: #ffc9dc;
+  --rosa-forte: #ff9fc0;
+  --rosa-claro: #fff0f5;
+  --branco: #ffffff;
+  --texto: #8a4b62;
+}
+
+* { box-sizing: border-box; }
+
+html { margin: 0; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--rosa-claro);
+  color: var(--texto);
+  font-family: "Quicksand", "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  /* respeita o notch e as barras do celular */
+  padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+           max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Estrelinhas caindo ---------- */
+#ceu {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.estrela {
+  position: absolute;
+  top: -40px;
+  color: var(--rosa-forte);
+  opacity: 0.8;
+  animation: cair linear forwards;
+  will-change: transform;
+}
+
+@keyframes cair {
+  0%   { transform: translate(0, -40px) rotate(0deg); }
+  50%  { transform: translate(var(--balanco), 50vh) rotate(180deg); }
+  100% { transform: translate(0, 110vh) rotate(360deg); }
+}
+
+/* ---------- Cartão ---------- */
+.cartao {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+}
+
+.ursinho {
+  font-size: 4rem;
+  animation: pular 2.4s ease-in-out infinite;
+}
+
+@keyframes pular {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+h1 {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  color: var(--rosa-forte);
+  margin: 8px 0 20px;
+  outline: none;
+}
+
+/* ---------- Caixa de texto: borda rosa, dentro branco ---------- */
+.caixa {
+  background: var(--branco);
+  border: 4px solid var(--rosa);
+  border-radius: 24px;
+  padding: 24px 22px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.7;
+  text-align: center;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.caixa strong { color: var(--rosa-forte); font-weight: 600; }
+
+/* ---------- Modo edição ---------- */
+body.editando .editavel {
+  cursor: text;
+  outline: 2px dashed var(--rosa-forte);
+  outline-offset: 6px;
+}
+body.editando .caixa { border-color: var(--rosa-forte); box-shadow: 0 0 0 6px var(--rosa-claro), 0 0 0 8px var(--rosa); }
+
+/* ---------- Botões ---------- */
+.botoes {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  min-height: 56px;
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 14px 34px;
+  min-height: 52px;
+  border-radius: 999px;
+  border: 3px solid var(--rosa);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform .15s, background .2s;
+}
+
+.btn-sim { background: var(--rosa); color: var(--branco); }
+.btn-sim:hover { transform: scale(1.08); background: var(--rosa-forte); border-color: var(--rosa-forte); }
+
+.btn-nao { background: var(--branco); color: var(--rosa-forte); }
+
+.btn:focus-visible, .btn-editar:focus-visible { outline: 3px solid var(--rosa-forte); outline-offset: 3px; }
+
+.btn-editar {
+  margin-top: 28px;
+  font: inherit;
+  font-size: .9rem;
+  color: var(--rosa-forte);
+  background: var(--branco);
+  border: 2px solid var(--rosa);
+  border-radius: 999px;
+  padding: 8px 20px;
+  min-height: 44px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* ---------- Coraçõezinhos da comemoração ---------- */
+.coracao {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  animation: subir 2.2s ease-out forwards;
+}
+
+@keyframes subir {
+  from { transform: translate(0, 0) scale(.6); opacity: 1; }
+  to   { transform: translate(var(--dx), -60vh) scale(1.4); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estrela, .ursinho { animation: none; }
+}
+
+/* ---------- Lírio-do-vale abrindo ---------- */
+.lirio {
+  width: min(190px, 55vw);
+  width: min(190px, 55vw, 36dvh);
+  margin: 0 auto;
+}
+
+.lirio svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.folha {
+  fill: #d6f0dd;
+  stroke: #a9d9b9;
+  stroke-width: 1.5;
+  transform-origin: 100px 252px;
+  transform: scale(0);
+}
+
+.caule {
+  fill: none;
+  stroke: #a9d9b9;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.ped {
+  fill: none;
+  stroke: #a9d9b9;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.sino {
+  fill: #ffffff;
+  stroke: #ffb3cd;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transform-origin: 0 0;
+  transform: scale(0);
+}
+
+/* A animação só começa quando a classe .abrindo é adicionada (clique no Sim) */
+.abrindo .folha     { animation: brotar 1.1s cubic-bezier(.2, .8, .3, 1.2) forwards; }
+.abrindo .folha.dir { animation-delay: .25s; }
+.abrindo .caule     { animation: crescer 1.6s .5s ease-out forwards; }
+.abrindo .ped       { animation: aparecer .4s calc(var(--d) - .2s) forwards; }
+.abrindo .sino {
+  animation:
+    abrir .9s var(--d) cubic-bezier(.2, .9, .3, 1.2) forwards,
+    balancar 3.6s calc(var(--d) + 1s) ease-in-out infinite;
+}
+
+@keyframes brotar   { to { transform: scale(1); } }
+@keyframes crescer  { to { stroke-dashoffset: 0; } }
+@keyframes aparecer { to { opacity: 1; } }
+
+@keyframes abrir {
+  0%   { transform: scale(.1, .3) rotate(-20deg); }
+  60%  { transform: scale(1.12) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes balancar {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(5deg); }
+  75%      { transform: rotate(-5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folha, .sino { transform: scale(1); animation: none !important; }
+  .caule { stroke-dashoffset: 0; animation: none !important; }
+  .ped { opacity: 1; animation: none !important; }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 480px) {
+  .ursinho { font-size: 3.4rem; }
+  h1 { margin-bottom: 16px; }
+
+  .caixa {
+    padding: 20px 16px;
+    border-width: 3px;
+    border-radius: 20px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .botoes { gap: 12px; margin-top: 22px; }
+  .btn { flex: 1 1 0; max-width: 200px; padding: 14px 16px; }
+
+  .lirio { width: min(210px, 62vw, 36dvh); }
+}
+
+/* Celular deitado (pouca altura) */
+@media (max-height: 500px) and (orientation: landscape) {
+  body { align-items: start; }
+  .ursinho { font-size: 2.6rem; }
+  h1 { margin: 4px 0 12px; }
+  .caixa { padding: 16px; font-size: 1rem; line-height: 1.55; }
+  .botoes { margin-top: 18px; }
+  .lirio { width: min(130px, 28vw); }
+}
+
+.btn-editar { display: none; }
